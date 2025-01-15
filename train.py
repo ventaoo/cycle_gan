@@ -25,6 +25,7 @@ def main():
     parser.add_argument('--output_nc', type=int, default=3, help='number of channels of output data')
     parser.add_argument('--cuda', action='store_true', help='use GPU computation')
     parser.add_argument('--cycle', action='store_true', help='use cycle loss')
+    parser.add_argument('--out_dir', type=str, required=True, help='root directory of the output')
     parser.add_argument('--n_cpu', type=int, default=8, help='number of cpu threads to use during batch generation')
     opt = parser.parse_args()
     print(opt)
@@ -174,10 +175,10 @@ def main():
         lr_scheduler_D_B.step()
 
         # Save models checkpoints
-        torch.save(netG_A2B.state_dict(), 'output/netG_A2B.pth')
-        torch.save(netG_B2A.state_dict(), 'output/netG_B2A.pth')
-        torch.save(netD_A.state_dict(), 'output/netD_A.pth')
-        torch.save(netD_B.state_dict(), 'output/netD_B.pth')
+        torch.save(netG_A2B.state_dict(), f'{opt.out_dir}/netG_A2B.pth')
+        torch.save(netG_B2A.state_dict(), f'{opt.out_dir}/netG_B2A.pth')
+        torch.save(netD_A.state_dict(), f'{opt.out_dir}/netD_A.pth')
+        torch.save(netD_B.state_dict(), f'{opt.out_dir}/netD_B.pth')
 
 if __name__ == '__main__':
     main()
